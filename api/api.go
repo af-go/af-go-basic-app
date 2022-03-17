@@ -34,6 +34,8 @@ func (c *Controller) Start(ctx context.Context) {
 	r := gin.Default()
 	h := HealthAPIManager{}
 	h.Build(r)
+	p := HelloAPIManager{}
+	p.Build(r)
 
 	pprof.Register(r)
 	c.server = &http.Server{
