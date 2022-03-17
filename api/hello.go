@@ -6,14 +6,12 @@ import (
 
 	"github.com/af-go/basic-app/pkg/model"
 	"github.com/gin-gonic/gin"
-	logging "github.com/sirupsen/logrus"
 )
 
 type HelloAPIManager struct {
 }
 
 func (h *HelloAPIManager) Build(engine *gin.Engine) {
-	logging.Info("build hello")
 	engine.GET("/ping", h.OnPing)
 }
 
