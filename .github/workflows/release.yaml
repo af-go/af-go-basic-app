@@ -1,9 +1,9 @@
 name: release-docker
 
 on:
-  push:
-    branches:
-      - 'main'
+  create:
+    tags:
+    - v*
 
 jobs:
   docker:
