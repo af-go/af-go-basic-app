@@ -26,12 +26,11 @@ func (h *HelloAPIManager) Build(engine *gin.Engine) {
 // @Failure 503 {object} model.HTTPError
 // @Router /ping [get]
 func (h *HelloAPIManager) OnPing(gc *gin.Context) {
-	podIP, present := os.LookupEnv("POD_ID")
+	label, present := os.LookupEnv("IDENTITY_LABEL")
 	if !present {
-		podIP = "127.0.0.1"
+		label = "standalone"
 	}
-
 	statusCode := 200
-	resp := model.StatusResponse{Message: fmt.Sprintf("pong from %s", podIP)}
+	resp := model.StatusResponse{Message: fmt.Sprintf("pong from %s", label)}
 	gc.JSON(statusCode, &resp)
 }
