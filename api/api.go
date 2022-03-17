@@ -31,8 +31,10 @@ func (c *Controller) Start(ctx context.Context) {
 	if port == 0 {
 		port = 8080
 	}
-	r := BuildEngine()
-	r.GET("/healthz", c.Healthz)
+	r := gin.Default()
+	h := HealthAPIManager{}
+	h.Build(r)
+
 	pprof.Register(r)
 	c.server = &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),

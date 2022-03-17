@@ -15,8 +15,6 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(VersionCmd)
-	rootCmd.AddCommand(MemoryLeakCmd)
-	rootCmd.AddCommand(TRCmd)
 	rootCmd.AddCommand(agent.AgentCmd)
 }
 
