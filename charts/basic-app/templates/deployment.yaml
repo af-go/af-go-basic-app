@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-app
+  labels:
+    {{ toYaml .Values.labels }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{ toYaml .Values.labels }}
+  template:
+    metadata:
+      labels:
+        {{ toYaml .Values.labels }}
+    spec:
+      containers:
+      - name: basic-app
+        image: {{ .Values.image }}:{{ .Chart.AppVersion }}
+        command: ["/basic-app"]
+        args: 
+        - agent
+        - --config=/etc/basic-app/config.yaml
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        env:
+        - name: IDENTITY_LABEL
+          value: "{{ .Values.identity}}"
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3

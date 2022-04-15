@@ -1,0 +1,27 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: basic-app-virtualservice
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - basic-app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/ping"
+    route:
+    - destination:
+        host: basic-app-service.zhilhua-1.svc.cluster.local
+        port:
+          number: 8080
+  - match:
+    - uri:
+        prefix: "/inservice"
+    route:
+    - destination:
+        host: basic-app-service.zhilhua-1.svc.cluster.local
+        port:
+          number: 8080

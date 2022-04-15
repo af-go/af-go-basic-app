@@ -1,0 +1,13 @@
+
+image: afgo/basic-app
+replicas: 2
+labels:
+  app: basic-app
+identity: "zhilhua2"
+resources:
+  limits:
+    cpu: 0.5
+    memory: 512Mi
+  requests:
+    cpu: 0.5
+    memory: 512Mi

@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic-app-ingress
+  labels:
+    ingress-category: "basic-app"
+  annotations:
+    kubernetes.io/ingress.class: "ingress-internal"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  rules:
+  - host: basic-app.int.china-dev02.dev.infra.webex.com
+    http:
+      paths:
+      - backend:
+          serviceName: basic-app-service
+          servicePort: 8080
+        path: /
+  tls:
+  - hosts:
+    - basic-app.int.china-dev02.dev.infra.webex.com
+    secretName: basic-app-ingress-tls  

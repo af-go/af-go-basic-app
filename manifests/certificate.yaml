@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: basic-app-cert
+spec:
+  secretName: basic-app-cert
+  dnsNames:
+  - basic-app.china-dev02.dev.meetapi.webex.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

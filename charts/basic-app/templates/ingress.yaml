@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: basic-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "false" 
+spec:
+  rules:
+  - host: external-dns-ingress.jiangfwa-dev.dev.meetapi.webex.com
+    http:
+      paths:
+      - backend:
+          service: 
+            name: "basic-app-service"
+            port: 
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - external-dns-ingress.jiangfwa-dev.dev.meetapi.webex.com
+    secretName: basic-app-tls-secret
+
