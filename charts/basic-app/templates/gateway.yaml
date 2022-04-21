@@ -11,4 +11,4 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - basic-app-istio-gateway.${.Values.cluster.fqdn}
+    - basic-app-istio-gateway.{{.Values.cluster.fqdn}}
