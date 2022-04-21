@@ -2,10 +2,10 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: basic-app-virtualservice-zhilhua-1
+  name: basic-app-virtualservice
 spec:
   hosts:
-  - basic-app-istio-gateway.{{.Values.cluster.fqdn}}
+  - basic-app-istio-gateway-{{ .Release.Namespace }}.{{.Values.cluster.fqdn}}
   gateways:
   - basic-app-gateway
   http:
@@ -25,3 +25,12 @@ spec:
         host: basic-app-service
         port:
           number: 8080
+  - match:
+    - uri:
+        prefix: "/readiness"
+    route:
+    - destination:
+        host: basic-app-service
+        port:
+          number: 8080
+

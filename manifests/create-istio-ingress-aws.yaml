@@ -1,13 +1,13 @@
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
-  name: zhilhua-1-basic-app-ingress
+  name: zhilhua-2-basic-app-ingress
   namespace: istio-system
 spec:
   components:
     ingressGateways:
       - name: istio-ingressgateway
-        namespace: zhilhua-1
+        namespace: zhilhua-2
         enabled: true
         k8s:
           affinity:

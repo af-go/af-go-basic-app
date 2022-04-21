@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false" 
 spec:
   rules:
-  - host: basic-app-ingress.{{.Values.cluster.fqdn}}
+  - host: basic-app-ingress-{{ .Release.Namespace }}.{{.Values.cluster.fqdn}}
     http:
       paths:
       - backend:
@@ -20,6 +20,6 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - basic-app-ingress.{{.Values.cluster.fqdn}}
+    - basic-app-ingress-{{ .Release.Namespace }}.{{.Values.cluster.fqdn}}
     secretName: basic-app-tls-secret
 
