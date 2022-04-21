@@ -11,4 +11,4 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - basic-app-gateway.jiangfwa-dev.dev.meetapi.webex.com
+    - basic-app-istio-gateway.${.Values.cluster.fqdn}

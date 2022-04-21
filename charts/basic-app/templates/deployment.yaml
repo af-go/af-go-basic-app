@@ -14,6 +14,16 @@ spec:
       labels:
         {{ toYaml .Values.labels }}
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - basic-app
+            topologyKey: topology.kubernetes.io/zone
       containers:
       - name: basic-app
         image: {{ .Values.image }}:{{ .Chart.AppVersion }}

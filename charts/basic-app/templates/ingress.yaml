@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false" 
 spec:
   rules:
-  - host: external-dns-ingress.jiangfwa-dev.dev.meetapi.webex.com
+  - host: basic-app-ingress.${.Values.cluster.fqdn}
     http:
       paths:
       - backend:
@@ -20,6 +20,6 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - external-dns-ingress.jiangfwa-dev.dev.meetapi.webex.com
+    - basic-app-ingress.${.Values.cluster.fqdn}
     secretName: basic-app-tls-secret
 

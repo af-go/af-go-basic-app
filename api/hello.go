@@ -21,14 +21,18 @@ func (h *HelloAPIManager) Build(engine *gin.Engine) {
 // @Description check status
 // @Success 200 {object} model.StatusResponse
 // @Failure 400 {object} model.HTTPError
+// @Failure 500 {object} model.HTTPError
 // @Failure 503 {object} model.HTTPError
 // @Router /ping [get]
 func (h *HelloAPIManager) OnPing(gc *gin.Context) {
-	label, present := os.LookupEnv("IDENTITY_LABEL")
-	if !present {
-		label = "standalone"
-	}
 	statusCode := 200
-	resp := model.StatusResponse{Message: fmt.Sprintf("pong from %s", label)}
+	name, err := os.Hostname()
+	var resp model.StatusResponse
+	if err != nil {
+		statusCode = 500
+		resp = model.StatusResponse{Message: fmt.Sprintf("internal server error %v", err)}
+	} else {
+		resp = model.StatusResponse{Message: fmt.Sprintf("pong from %s", name)}
+	}
 	gc.JSON(statusCode, &resp)
 }

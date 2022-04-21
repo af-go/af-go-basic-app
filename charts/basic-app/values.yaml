@@ -1,9 +1,10 @@
 
 image: afgo/basic-app
-replicas: 2
+replicas: 1
 labels:
   app: basic-app
-identity: "zhilhua2"
+cluster:
+  fqdn: example.com
 resources:
   limits:
     cpu: 0.5
