@@ -4,7 +4,7 @@ metadata:
   name: basic-app-gateway
 spec:
   selector:
-    istio: ingressgateway
+    istio: infra-pub-ingressgateway
   servers:
   - port:
       number: 80
@@ -12,3 +12,4 @@ spec:
       protocol: HTTP
     hosts:
     - basic-app-istio-gateway-{{ .Release.Namespace }}.{{.Values.cluster.fqdn}}
+    - {{.Values.global.fqdn}}

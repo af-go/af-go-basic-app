@@ -1,0 +1,5 @@
+replicas: 3
+cluster:
+  fqdn: hfedev-m1.dev.meetapi.webex.com
+global:
+  fqdn: hfedev-m1.mainapp.dev.meetapi.webex.com

@@ -1,3 +1,5 @@
 replicas: 3
 cluster:
   fqdn: china-dev02.dev.meetapi.webex.com
+global:
+  fqdn: basic-app.mainapp.dev.meetapi.webex.com

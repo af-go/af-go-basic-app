@@ -4,7 +4,9 @@ replicas: 1
 labels:
   app: basic-app
 cluster:
-  fqdn: example.com
+  fqdn: china-dev01.dev.infra.webex.com
+global:
+  fqdn: basic-app.mainapp.dev.meetapi.webex.com
 resources:
   limits:
     cpu: 0.5

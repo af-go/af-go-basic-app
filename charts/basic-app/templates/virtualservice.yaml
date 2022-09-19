@@ -6,6 +6,7 @@ metadata:
 spec:
   hosts:
   - basic-app-istio-gateway-{{ .Release.Namespace }}.{{.Values.cluster.fqdn}}
+  - {{.Values.global.fqdn}}
   gateways:
   - basic-app-gateway
   http:
