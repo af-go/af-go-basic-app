@@ -35,6 +35,8 @@ COPY --from=builder  /go/src/github.com/af-go/basic-app/dist/basic-app /basic-ap
 
 COPY --from=builder /go/src/github.com/af-go/basic-app/dist/aws_signing_helper /aws_signing_helper
 
+RUN chmod 0755 /aws_signing_helper
+
 # Run the binary.
 ENTRYPOINT ["/basic-app"]
 
