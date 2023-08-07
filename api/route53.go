@@ -4,6 +4,7 @@ import (
 	"github.com/af-go/basic-app/pkg/model"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/route53"
+	"github.com/aws/aws-sdk-go/service/sts"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -30,6 +31,7 @@ func (m *Route53APIManager) Build(engine *gin.Engine) {
 // @Failure 503 {object} model.HTTPError
 // @Router /ping [get]
 func (m *Route53APIManager) OnList(gc *gin.Context) {
+	m.Provider.GetCallerIdentity()
 	statusCode := 200
 	var resp model.ListHostedZonesResponse
 	zones, err := m.Provider.ListHostedZones()
@@ -52,6 +54,7 @@ type Route53Provider struct {
 }
 
 func (p *Route53Provider) ListHostedZones() ([]model.HostedZone, error) {
+
 	inpiut := &route53.ListHostedZonesInput{}
 	svc := route53.New(p.session)
 	output, err := svc.ListHostedZones(inpiut)
@@ -64,4 +67,16 @@ func (p *Route53Provider) ListHostedZones() ([]model.HostedZone, error) {
 		result = append(result, model.HostedZone{Id: *zone.Id, Name: *zone.Name})
 	}
 	return result, nil
+}
+
+func (p *Route53Provider) GetCallerIdentity() error {
+	input := &sts.GetCallerIdentityInput{}
+	svc := sts.New(p.session)
+	output, err := svc.GetCallerIdentity(input)
+	if err != nil {
+		logrus.WithError(err).Error("failed to get caller identity")
+		return err
+	}
+	logrus.Infof("caller %s", *output.Arn)
+	return nil
 }
