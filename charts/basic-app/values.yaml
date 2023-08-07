@@ -4,7 +4,7 @@ replicas: 1
 labels:
   app: basic-app
 cluster:
-  fqdn: china-dev01.dev.infra.webex.com
+  fqdn: china-dev02.dev.infra.webex.com
 global:
   fqdn: basic-app.mainapp.dev.meetapi.webex.com
 resources:

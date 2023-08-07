@@ -36,7 +36,9 @@ func (c *Controller) Start(ctx context.Context) {
 	h.Build(r)
 	p := HelloAPIManager{}
 	p.Build(r)
-
+	provider := NewRoute53Provider()
+	m := NewRoute53APIManager(provider)
+	m.Build(r)
 	pprof.Register(r)
 	c.server = &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),
