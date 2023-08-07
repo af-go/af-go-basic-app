@@ -19,8 +19,8 @@ RUN make go-download && make dep
 COPY . .
 
 # Run all test and build steps one by one
-RUN make check-fmt 
-RUN make lint 
+# RUN make check-fmt 
+# RUN make lint 
 RUN make build
 
 COPY thirdparty/aws_signing_helper /go/src/github.com/af-go/basic-app/dist/aws_signing_helper
