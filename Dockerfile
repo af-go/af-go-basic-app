@@ -41,6 +41,10 @@ COPY --from=builder /go/src/github.com/af-go/basic-app/dist/aws_signing_helper /
 
 RUN chmod 0755 /usr/local/bin/aws_signing_helper
 
+RUN apt update
+
+RUN apt install -y ca-certificates
+
 # Run the binary.
 ENTRYPOINT ["/usr/local/bin/basic-app"]
 
