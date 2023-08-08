@@ -8,7 +8,7 @@ ARG BUILD_USER=jenkins
 ARG GOPROXY=
 
 ENV GO111MODULE=on
-RUN apk update && apk add --no-cache git make musl-dev curl busybox-static jq bash tree
+RUN apk update && apk add --no-cache git make musl-dev curl busybox-static jq bash tree wget
 
 WORKDIR /go/src/github.com/af-go/basic-app
 COPY go.mod .
@@ -23,7 +23,11 @@ COPY . .
 # RUN make lint 
 RUN make build
 
-COPY thirdparty/aws_signing_helper /go/src/github.com/af-go/basic-app/dist/aws_signing_helper
+RUN wget https://rolesanywhere.amazonaws.com/releases/1.0.5/X86_64/Linux/aws_signing_helper
+
+RUN mv aws_signing_helper /go/src/github.com/af-go/basic-app/dist/
+
+
 ############################
 # STEP 2 build a small image
 ############################
