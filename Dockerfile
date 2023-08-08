@@ -27,18 +27,18 @@ COPY thirdparty/aws_signing_helper /go/src/github.com/af-go/basic-app/dist/aws_s
 ############################
 # STEP 2 build a small image
 ############################
-FROM alpine:3.12
+FROM ubuntu:latest
 
-RUN apk update && apk add curl
+#RUN apk update && apk add curl
 
-COPY --from=builder  /go/src/github.com/af-go/basic-app/dist/basic-app /basic-app
+COPY --from=builder  /go/src/github.com/af-go/basic-app/dist/basic-app /usr/local/bin/basic-app
 
 COPY --from=builder /go/src/github.com/af-go/basic-app/dist/aws_signing_helper /usr/local/bin/aws_signing_helper
 
 RUN chmod 0755 /usr/local/bin/aws_signing_helper
 
 # Run the binary.
-ENTRYPOINT ["/basic-app"]
+ENTRYPOINT ["/usr/local/bin/basic-app"]
 
 EXPOSE 8080
 
