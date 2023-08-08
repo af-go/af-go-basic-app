@@ -6,7 +6,6 @@ require (
 	github.com/aws/aws-sdk-go v1.44.317
 	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.0
-	github.com/go-logr/logr v1.2.4
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1
 	gopkg.in/yaml.v2 v2.4.0

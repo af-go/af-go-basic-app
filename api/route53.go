@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/af-go/basic-app/pkg/model"
+	sdk "github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/route53"
 	"github.com/aws/aws-sdk-go/service/sts"
@@ -45,8 +46,14 @@ func (m *Route53APIManager) OnList(gc *gin.Context) {
 }
 
 func NewRoute53Provider() *Route53Provider {
-	session := session.Must(session.NewSession())
-	return &Route53Provider{session: session}
+	cfg := sdk.Config{
+		LogLevel: sdk.LogLevel(sdk.LogDebug),
+	}
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+		Config:            cfg,
+	}))
+	return &Route53Provider{session: sess}
 }
 
 type Route53Provider struct {
