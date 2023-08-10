@@ -1,6 +1,9 @@
-############################
-# STEP 1 build executable binary
-############################
+###################################################
+FROM ubuntu:latest AS certs
+RUN apt update
+RUN apt install -y ca-certificates
+
+##################################################
 FROM golang:1.19-alpine as builder
 
 ARG BUILD_NUM=1
@@ -29,11 +32,11 @@ RUN mv aws_signing_helper /go/src/github.com/af-go/basic-app/dist/
 
 
 ############################
-# STEP 2 build a small image
+#  build image
 ############################
 FROM ubuntu:latest
 
-#RUN apk update && apk add curl
+COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 COPY --from=builder  /go/src/github.com/af-go/basic-app/dist/basic-app /usr/local/bin/basic-app
 
@@ -41,9 +44,7 @@ COPY --from=builder /go/src/github.com/af-go/basic-app/dist/aws_signing_helper /
 
 RUN chmod 0755 /usr/local/bin/aws_signing_helper
 
-RUN apt update
 
-RUN apt install -y ca-certificates
 
 # Run the binary.
 ENTRYPOINT ["/usr/local/bin/basic-app"]
